@@ -30,9 +30,6 @@ import kotlinx.coroutines.isActive
 import kotlin.math.abs
 import kotlin.math.min
 
-/**
- * API pública: pantalla del mundo top-down.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameWorldScreen(
@@ -53,7 +50,7 @@ fun GameWorldScreen(
     val map = bundle.map
     val tilesets = bundle.tilesets
 
-    // Escala del tileset con respecto al mapa (usar primer tileset)
+    // Escala del tileset con respecto al mapa (usa el primer tileset)
     val scaleFactor = remember(bundle) {
         tilesets.firstOrNull()?.meta?.tilewidth?.toFloat()?.div(map.tilewidth.toFloat()) ?: 1f
     }.coerceAtLeast(1f)
@@ -68,8 +65,10 @@ fun GameWorldScreen(
     val HERO_ROWS = 4
     val HERO_MARGIN = 16
     val HERO_SPACING = 16
-    val heroFrameW = (heroSheet.width  - HERO_MARGIN * 2 - (HERO_COLS - 1) * HERO_SPACING) / HERO_COLS
-    val heroFrameH = (heroSheet.height - HERO_MARGIN * 2 - (HERO_ROWS - 1) * HERO_SPACING) / HERO_ROWS
+    val heroFrameW =
+        (heroSheet.width - HERO_MARGIN * 2 - (HERO_COLS - 1) * HERO_SPACING) / HERO_COLS
+    val heroFrameH =
+        (heroSheet.height - HERO_MARGIN * 2 - (HERO_ROWS - 1) * HERO_SPACING) / HERO_ROWS
 
     // Zoom del héroe a pixeles pantalla
     val heroScale = (map.tileheight * desiredTilesTall * scaleFactor) / heroFrameH.toFloat()
@@ -108,28 +107,38 @@ fun GameWorldScreen(
 
         while (isActive) {
             withFrameNanos { now ->
-                if (lastNanos == 0L) { lastNanos = now; return@withFrameNanos }
+                if (lastNanos == 0L) {
+                    lastNanos = now; return@withFrameNanos
+                }
                 val dt = (now - lastNanos) / 1_000_000f
                 lastNanos = now
 
                 // anim
                 if (moving) {
                     elapsedMs += dt.toLong()
-                    if (elapsedMs >= frameMs) { elapsedMs = 0; frameIdx = (frameIdx + 1) % HERO_COLS }
+                    if (elapsedMs >= frameMs) {
+                        elapsedMs = 0; frameIdx = (frameIdx + 1) % HERO_COLS
+                    }
                 } else frameIdx = 0
 
                 // move
                 if (input.getDistance() > 0.1f) {
                     moving = true
-                    val nx = input.x; val ny = input.y
-                    dir = if (abs(nx) > abs(ny)) if (nx > 0) Dir.RIGHT else Dir.LEFT else if (ny > 0) Dir.DOWN else Dir.UP
-                    val step = Offset(nx * (speedWorld * dt / 1000f), ny * (speedWorld * dt / 1000f))
+                    val nx = input.x;
+                    val ny = input.y
+                    dir =
+                        if (abs(nx) > abs(ny)) if (nx > 0) Dir.RIGHT else Dir.LEFT else if (ny > 0) Dir.DOWN else Dir.UP
+                    val step =
+                        Offset(nx * (speedWorld * dt / 1000f), ny * (speedWorld * dt / 1000f))
                     val next = playerPos + step
 
                     val half = (min(tw, th) * 0.375f)
                     val nextRect = Rect(next.x - half, next.y - half, next.x + half, next.y + half)
                     val hit = collisions.any { o ->
-                        if (!o.visible) false else rectsIntersect(nextRect, Rect(o.x, o.y, o.x + o.width, o.y + o.height))
+                        if (!o.visible) false else rectsIntersect(
+                            nextRect,
+                            Rect(o.x, o.y, o.x + o.width, o.y + o.height)
+                        )
                     }
                     if (!hit) {
                         playerPos = Offset(
@@ -181,8 +190,7 @@ fun GameWorldScreen(
                         )
                     }
             ) {
-                // ======= ÚNICO CAMBIO IMPORTANTE PARA CENTRAR =======
-                // Convertimos la cámara (en el centro del viewport) a top-left
+                // cámara (en el centro del viewport) top-left
                 val viewWWorld = size.width / scaleFactor
                 val viewHWorld = size.height / scaleFactor
                 val camLeft = clamp(
@@ -207,7 +215,7 @@ fun GameWorldScreen(
                     scaleFactor = scaleFactor
                 )
 
-                // Héroe (usa la misma cámara top-left)
+                // Héroe
                 drawHero(
                     heroSheet = heroSheet,
                     frameIdx = frameIdx,

@@ -24,17 +24,18 @@ internal fun loadTiledMapFromAssets(
 ): MapBundle {
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-    // 1) Mapa
+    // Mapa
     val mapJson = ctx.readAssetText("$basePath/$mapFile")
     val map = moshi.adapter(TiledMap::class.java).fromJson(mapJson)
         ?: error("No se pudo parsear $mapFile")
 
-    // 2) Tilesets
+    // Tilesets
     val bundles = mutableListOf<TilesetBundle>()
     val refs = map.tilesets.sortedBy { it.firstgid }
 
     for (ref in refs) {
-        val tsRel = if (ref.source.startsWith("$basePath/")) ref.source else "$basePath/${ref.source}"
+        val tsRel =
+            if (ref.source.startsWith("$basePath/")) ref.source else "$basePath/${ref.source}"
         val tsText = ctx.readAssetText(tsRel)
 
         val isJson = tsRel.endsWith(".tsj", true) || tsRel.endsWith(".json", true)

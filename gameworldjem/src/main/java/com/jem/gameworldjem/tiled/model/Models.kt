@@ -2,7 +2,6 @@ package com.jem.gameworldjem.tiled.model
 
 import androidx.compose.ui.graphics.ImageBitmap
 
-// ---- Tiled minimal models (solo lo que usamos) ----
 data class TiledTilesetRef(val firstgid: Int, val source: String)
 
 data class TiledObject(
@@ -58,7 +57,6 @@ data class MapBundle(
     val tilesets: List<TilesetBundle>
 )
 
-// Declaración aquí para evitar ciclos de import
 data class TilesetBundle(
     val meta: ExternalTileset,
     val image: ImageBitmap,

@@ -32,7 +32,7 @@ internal fun DrawScope.drawHero(
     }
 
     val sx = heroMargin + frameIdx * (heroFrameW + heroSpacing)
-    val sy = heroMargin + heroRow  * (heroFrameH + heroSpacing)
+    val sy = heroMargin + heroRow * (heroFrameH + heroSpacing)
 
     val dstX = ((worldX - camX) * scaleFactor - dstW / 2f).toInt()
     val dstY = ((worldY - camY) * scaleFactor - dstH * footAnchor).toInt()

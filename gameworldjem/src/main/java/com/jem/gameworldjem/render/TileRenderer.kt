@@ -47,12 +47,12 @@ internal fun DrawScope.drawTiledLayers(
         val ts = resolveTs(gid) ?: return
         val m = ts.meta
         val spacing = m.spacing ?: 0
-        val margin  = m.margin ?: 0
+        val margin = m.margin ?: 0
         val tW = m.tilewidth
         val tH = m.tileheight
 
         // Derivar columnas/filas reales a partir del PNG
-        val colsImg = ((ts.image.width  - margin * 2 + spacing) / (tW + spacing)).coerceAtLeast(1)
+        val colsImg = ((ts.image.width - margin * 2 + spacing) / (tW + spacing)).coerceAtLeast(1)
         val rowsImg = ((ts.image.height - margin * 2 + spacing) / (tH + spacing)).coerceAtLeast(1)
         val total = colsImg * rowsImg
 
@@ -65,7 +65,7 @@ internal fun DrawScope.drawTiledLayers(
         val sy = margin + atlasRow * (tH + spacing)
 
         val dstLeftPx = ((col * tw - camX) * scaleFactor).toInt()
-        val dstTopPx  = ((row * th - camY) * scaleFactor).toInt()
+        val dstTopPx = ((row * th - camY) * scaleFactor).toInt()
         val dstW = (tw * scaleFactor).toInt()
         val dstH = (th * scaleFactor).toInt()
 
@@ -88,8 +88,8 @@ internal fun DrawScope.drawTiledLayers(
             }
         }
         layer.chunks?.forEach { ch ->
-            val rowRange = maxOf(startRow, ch.y) .. minOf(endRow, ch.y + ch.height - 1)
-            val colRange = maxOf(startCol, ch.x) .. minOf(endCol, ch.x + ch.width  - 1)
+            val rowRange = maxOf(startRow, ch.y)..minOf(endRow, ch.y + ch.height - 1)
+            val colRange = maxOf(startCol, ch.x)..minOf(endCol, ch.x + ch.width - 1)
             for (row in rowRange) for (col in colRange) {
                 val localRow = row - ch.y
                 val localCol = col - ch.x
