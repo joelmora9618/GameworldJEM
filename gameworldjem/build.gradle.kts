@@ -27,14 +27,22 @@ android {
         jvmToolchain(17)
         compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) }
     }
+}
 
-    // Publica SOLO la variante release y genera automáticamente el sources.jar
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            // withJavadocJar() // opcional si generas javadoc
-        }
-    }
+dependencies {
+    val composeBom = platform("androidx.compose:compose-bom:2024.08.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation(libs.ui)
+    implementation(libs.material3)
+    implementation(libs.ui.tooling.preview)
+    debugImplementation(libs.ui.tooling)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    implementation(libs.moshi.kotlin)
 }
 
 // 🔽 Retrasamos la creación de la publicación hasta que exista el componente "release"
