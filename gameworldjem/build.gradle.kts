@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.jem.gameworldjem"
-version = "0.1.0"
+version = "0.1.3"
 
 android {
     namespace = "com.jem.gameworldjem"
