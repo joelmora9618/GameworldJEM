@@ -1,0 +1,15 @@
+{
+  "name": "tileset_hd",
+  "type": "tileset",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "tilewidth": 128,
+  "tileheight": 128,
+  "tilecount": 256,
+  "columns": 16,
+  "spacing": 0,
+  "margin": 0,
+  "image": "tileset_pokemon_like.png",
+  "imagewidth": 2048,
+  "imageheight": 2048
+}

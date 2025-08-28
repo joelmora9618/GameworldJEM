@@ -32,3 +32,14 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Nunca subir secretos ni archivos de conflicto
+*.rej
+*.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+
+# Archivos locales
+
