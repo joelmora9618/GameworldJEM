@@ -1,7 +1,7 @@
 # GameworldJEM 🕹️✨
 **A tiny top‑down world renderer for Jetpack Compose** — loads maps from **Tiled** and draws them using Compose’s `Canvas`, including multi‑tileset support, a walking hero sprite, camera follow, and simple collisions. Fast to drop into your app for prototypes, demos, or retro‑style games.
 
-> **Module coordinates**: `com.jem.gameworldjem:gameworldjem:0.1.0`
+> **Module coordinates**: `com.jem.gameworldjem:gameworldjem:0.1.4`
 
 ---
 
